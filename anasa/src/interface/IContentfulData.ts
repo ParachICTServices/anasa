@@ -22,6 +22,7 @@ export interface FieldsInterface {
   images?: any[];
   language?:string[],
   fullDescription?: Document,
+  socials: string[],
   description?: string | string[],
 }
 
