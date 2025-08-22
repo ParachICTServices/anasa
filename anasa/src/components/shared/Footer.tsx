@@ -9,7 +9,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { BiLogoFacebookSquare } from "react-icons/bi";
 import Image from "next/image";
-import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { FaLinkedin, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { RiInstagramFill } from "react-icons/ri";
 import { AiFillTikTok } from "react-icons/ai";
 import Whatsapp from "./Whatsapp";
@@ -50,13 +50,51 @@ export default async function Footer() {
     },
   ];
 
+  const getPlatformInfo = (url: string) => {
+    if (url.includes("facebook.com")) {
+      return {
+        icon: <FaLinkedin className=" text-white" size={22} />,
+        name: "Facebook",
+        link: url,
+        color: "#1877F2",
+      };
+    }
+
+    if (url.includes("youtube.com") || url.includes("youtu.be")) {
+      return {
+        icon: <FaYoutube className=" text-white" size={22} />,
+        name: "YouTube",
+        link: url,
+        color: "#FF0000",
+      };
+    }
+    if (url.includes("instagram.com")) {
+      return {
+        icon: <RiInstagramFill className=" text-white" size={22} />,
+        name: "Instagram",
+        link: url,
+        color: "#E4405F",
+      };
+    }
+    if (url.includes("tiktok.com")) {
+      return {
+        icon: <AiFillTikTok className=" text-white" size={22} />,
+        name: "TikTok",
+        link: url,
+        color: "#000000",
+      };
+    }
+    return;
+  };
+
   return (
     <footer className="w-full">
       <div
         className=" w-full lg:h-[400px] overflow-hidden bg-cover"
         style={{
           backgroundImage: `url(${processRawImage(
-            sectionData?.backgroundImage, false
+            sectionData?.backgroundImage,
+            false
           )})`,
         }}
       >
@@ -138,11 +176,14 @@ export default async function Footer() {
             <Link href={"#"}>Terms of Use</Link>
           </div>
           <div className="flex items-center py-5 gap-3">
-            <FaLinkedin className=" text-white" size={20} />
-            <RiInstagramFill className=" text-white" size={20} />
-            <BiLogoFacebookSquare className=" text-white" size={20} />
-            {/* <FaXTwitter color="white" /> */}
-            <AiFillTikTok className=" text-white" size={20} />
+            {sectionData?.socials?.map((res, index) => {
+              const platformInfo = getPlatformInfo(res);
+              return (
+                <a href={platformInfo?.link} target="_blank" referrerPolicy="no-referrer" className="" key={index}>
+                  {platformInfo?.icon}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
