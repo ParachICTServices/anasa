@@ -53,7 +53,7 @@ export default async function Footer() {
   const getPlatformInfo = (url: string) => {
     if (url.includes("facebook.com")) {
       return {
-        icon: <FaLinkedin className=" text-white" size={22} />,
+        icon: <BiLogoFacebookSquare className=" text-white" size={22} />,
         name: "Facebook",
         link: url,
         color: "#1877F2",
